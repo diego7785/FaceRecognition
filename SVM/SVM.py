@@ -9,7 +9,7 @@ from sklearn.svm import LinearSVC
 import time
 
 start = time.time()
-
+'''
 #FRAMES EXTRACTION FROM VIDEO
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 faces_path = 'C:\\Users\\Usuario\\Google Drive\\Truora\\FaceRecognition\\Videos'
@@ -31,11 +31,11 @@ for root, dirs, files in os.walk(image_dir):
                             name='C:\\Users\\Usuario\\Google Drive\\Truora\\FaceRecognition\\DiegoRostro'+'\\frame'+str(count)+'.png'
                             cv2.imwrite(name,frame)
                             count = count - 1
-
+'''
 #Path to the extracted frames directory
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 #faces_path = 'C:\\Users\\Usuario\\Google Drive\\Truora\\FaceRecognition\\PabloEstebanRostro'  #CON EL FUNCIONA
-faces_path = 'C:\\Users\\Usuario\\Google Drive\\Truora\\FaceRecognition\\DiegoRostro'
+faces_path = 'C:\\Users\\Usuario\\Google Drive\\Truora\\FaceRecognition\\FotosPabloEsteban'
 negatives_path = 'C:\\Users\\Usuario\\Google Drive\\Truora\\FaceRecognition\\No'
 image_dir = os.path.join(BASE_DIR,faces_path)
 negatives_dir = os.path.join(BASE_DIR,negatives_path)
@@ -63,16 +63,16 @@ for root, dirs, files in os.walk(image_dir):
             #cv2.destroyAllWindows()
             image=cv2.resize(image,(64,128),interpolation=cv2.INTER_CUBIC)
             #HOG
-            hist=hog.compute(image)
-            training.append(hist)
-            labels.append(1)
-            #LBP
-            #lbp = feature.local_binary_pattern(image, 24, 3, method="uniform")
-            #(hist, _) = np.histogram(lbp.ravel(),bins=np.arange(0, 24 + 3),range=(0, 24 + 2))
-            #hist = hist.astype("float")
-            #hist /= (hist.sum() + 1e-7)
+            #hist=hog.compute(image)
             #training.append(hist)
             #labels.append(1)
+            #LBP
+            lbp = feature.local_binary_pattern(image, 24, 3, method="uniform")
+            (hist, _) = np.histogram(lbp.ravel(),bins=np.arange(0, 24 + 3),range=(0, 24 + 2))
+            hist = hist.astype("float")
+            hist /= (hist.sum() + 1e-7)
+            training.append(hist)
+            labels.append(1)
 
 #Negative files search
 for root, dirs, files in os.walk(negatives_dir):
@@ -82,65 +82,79 @@ for root, dirs, files in os.walk(negatives_dir):
             image = cv2.imread(path, 0)
             resized_image = cv2.resize(image, (64,128))
             # HOG
-            hist=hog.compute(resized_image)
-            training.append(hist)
-            labels.append(-1)
-            # LBP
-            #lbp = feature.local_binary_pattern(resized_image, 24, 3, method="uniform")
-            #(hist, _) = np.histogram(lbp.ravel(), bins=np.arange(0, 24 + 3), range=(0, 24 + 2))
-            #hist = hist.astype("float")
-            #hist /= (hist.sum() + 1e-7)
+            #hist=hog.compute(resized_image)
             #training.append(hist)
             #labels.append(-1)
+            # LBP
+            lbp = feature.local_binary_pattern(resized_image, 24, 3, method="uniform")
+            (hist, _) = np.histogram(lbp.ravel(), bins=np.arange(0, 24 + 3), range=(0, 24 + 2))
+            hist = hist.astype("float")
+            hist /= (hist.sum() + 1e-7)
+            training.append(hist)
+            labels.append(-1)
 
 #HOG
-featuresList=np.array(training,np.float32)  #Training set
-labelsList=np.array(labels,np.int)   #Labels set
-svm = cv2.ml.SVM_create()
-svm.setType(cv2.ml.SVM_C_SVC)
-svm.setKernel(cv2.ml.SVM_LINEAR)
-a = np.asarray(featuresList)
-b = np.array(labelsList)
-svm.train(a, cv2.ml.ROW_SAMPLE, b)
-svm.save('hog_svm.dat')
+#featuresList=np.array(training,np.float32)  #Training set
+#labelsList=np.array(labels,np.int)   #Labels set
+#svm = cv2.ml.SVM_create()
+#svm.setType(cv2.ml.SVM_C_SVC)
+#svm.setKernel(cv2.ml.SVM_LINEAR)
+#a = np.asarray(featuresList)
+#b = np.array(labelsList)
+#svm.train(a, cv2.ml.ROW_SAMPLE, b)
+#svm.save('hog_svm.dat')
 #Testing
-test = cv2.ml.SVM_load("hog_svm.dat")
+#test = cv2.ml.SVM_load("hog_svm.dat")
 #image_test = cv2.imread('C:\\Users\\Usuario\\Google Drive\\Truora\\FaceRecognition\\pablo_esteban1.png',0)  #FUNCIONA CON SUS SELFIES Y SU DOCUMENTO
-image_test = cv2.imread('C:\\Users\\Usuario\\Google Drive\\Truora\\FaceRecognition\\cedula_frontal.png',0)
+#image_test = cv2.imread('C:\\Users\\Usuario\\Google Drive\\Truora\\FaceRecognition\\Cedulas\\cedula_Diego1.png',0)
 #image_test = cv2.imread('C:\\Users\\Usuario\\Downloads\\diego.jpg',0)
-image_test=cv2.resize(image_test, (698, 452))
-faces = face_cascade.detectMultiScale(image_test, scaleFactor=1.14, minNeighbors=9, minSize=(5, 5), flags=cv2.CASCADE_SCALE_IMAGE)
-for (x, y, w, h) in faces:
-    image_test = image_test[y:y + h, x:x + w]
+#image_test=cv2.resize(image_test, (698, 452))
+#faces = face_cascade.detectMultiScale(image_test, scaleFactor=1.14, minNeighbors=9, minSize=(5, 5), flags=cv2.CASCADE_SCALE_IMAGE)
+#for (x, y, w, h) in faces:
+#    image_test = image_test[y:y + h, x:x + w]
 #cv2.imshow('face',image_test)
 #cv2.waitKey(0)
 #cv2.destroyAllWindows()
-image_test=cv2.resize(image_test,(64,128),interpolation=cv2.INTER_CUBIC)
-h_test=hog.compute(image_test)
-test_=list()
-test_.append(h_test)
-test_=np.array(test_)
-result=test.predict(test_)
-print(result[1])
-end = time.time()
-elapsedTime = end-start
-print('elapsed time:',elapsedTime)
-
-#LBP
-#testing=[]
-#model = LinearSVC(C=100.0, random_state=42)
-#model.fit(training, labels)
-#image_test = cv2.imread('C:\\Users\\Usuario\\Google Drive\\Truora\\FaceRecognition\\cedula_frontal.png',0)
-#lbp = feature.local_binary_pattern(image_test, 24, 3, method="uniform")
-#(h_test, _) = np.histogram(lbp.ravel(),bins=np.arange(0, 24 + 3),range=(0, 24 + 2))
-#h_test = h_test.astype("float")
-#h_test /= (h_test.sum() + 1e-7)
-#testing.append(h_test)
-#prediction = model.predict(testing)
-#print(prediction)
+#image_test=cv2.resize(image_test,(64,128),interpolation=cv2.INTER_CUBIC)
+#HOG
+#h_test=hog.compute(image_test)
+#test_=list()
+#test_.append(h_test)
+#test_=np.array(test_)
+#result=test.predict(test_)
+#print(result[1])
 #end = time.time()
 #elapsedTime = end-start
 #print('elapsed time:',elapsedTime)
+
+#LBP
+testing=[]
+model = LinearSVC(C=100.0, random_state=42)
+model.fit(training, labels)
+image_test = cv2.imread('C:\\Users\\Usuario\\Google Drive\\Truora\\FaceRecognition\\Rostros\\PabloEsteban.png',0)
+#image_test=cv2.resize(image_test, (698, 582))
+#cv2.imshow('cedula',image_test)
+#cv2.waitKey(0)
+#cv2.destroyAllWindows()
+faces = face_cascade.detectMultiScale(image_test, scaleFactor=1.14, minNeighbors=9, minSize=(5, 5), flags=cv2.CASCADE_SCALE_IMAGE)
+iterator=0
+for (x, y, w, h) in faces:
+    image_test = image_test[y:y + h, x:x + w]
+    iterator+=1
+
+#cv2.imshow('face',image_test)
+#cv2.waitKey(0)
+#cv2.destroyAllWindows()
+lbp = feature.local_binary_pattern(image_test, 24, 3, method="uniform")
+(h_test, _) = np.histogram(lbp.ravel(),bins=np.arange(0, 24 + 3),range=(0, 24 + 2))
+h_test = h_test.astype("float")
+h_test /= (h_test.sum() + 1e-7)
+testing.append(h_test)
+prediction = model.predict(testing)
+print(prediction)
+end = time.time()
+elapsedTime = end-start
+print('elapsed time:',elapsedTime)
 
 
 
