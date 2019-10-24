@@ -1,10 +1,10 @@
+//Indexing faces to a collection
+
 package main
 
 import (
 	"fmt"
 	"time"
-
-	"github.com/davecgh/go-spew/spew"
 
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-sdk-go/aws"
@@ -15,7 +15,7 @@ import (
 
 var (
 	_rekognitionService rekognitioniface.RekognitionAPI
-	collectionID        = "test-video-angelica"
+	collectionID        = "test-video-pabloesteban" //"NoFaces"
 )
 
 // LambdaRequest body of request
@@ -26,34 +26,44 @@ type LambdaRequest struct {
 	err        error
 }
 
+
 func (req *LambdaRequest) addFaces() error {
 	input := &rekognition.IndexFacesInput{
-		ExternalImageId:     aws.String("test-video-1.png"),
+		ExternalImageId:     aws.String("test-video-1.png"), //The ID assigned to the face found
 		CollectionId:        aws.String(collectionID),
-		DetectionAttributes: []*string{aws.String("ALL")},
+		DetectionAttributes: []*string{aws.String("DEFAULT")},
+		//"MaxFaces":1,
 		Image: &rekognition.Image{
 			S3Object: &rekognition.S3Object{
 				Bucket: aws.String(req.bucketName),
 				Name:   aws.String(req.objectKey),
 			},
 		},
-	}
 
-	spew.Dump(input)
+	}
 
 	out, err := _rekognitionService.IndexFaces(input)
 	if err != nil {
 		return err
 	}
 
-	spew.Dump(out)
+	//fmt.Println(out)
+	faceRecords := out.FaceRecords
+	if len(faceRecords) == 0 {
+		fmt.Println("No faces found")
+	} else{
+		faceConfidence := *out.FaceRecords[0].Face.Confidence
+		brightness := *out.FaceRecords[0].FaceDetail.Quality.Brightness
+		sharpness := *out.FaceRecords[0].FaceDetail.Quality.Sharpness
+		fmt.Println("Confidence of a face: ",faceConfidence," Brightness: ", brightness, " Sharpness: ", sharpness)
+	}
 
 	return nil
 }
 
 func main() {
 	start := time.Now()
-	time.Sleep(time.Second*2)
+	//time.Sleep(time.Second*2)
 	sess, err := session.NewSession(&aws.Config{
 		Region: aws.String("us-east-1")},
 	)
@@ -67,7 +77,7 @@ func main() {
 
 	request := LambdaRequest{
 		bucketName: "prueba-face-recognition",
-		objectKey:  "VideoAngelica/Angelica.png",
+		objectKey:  "VideoPabloEsteban/PabloEsteban.png", //"NoFaces/NoFace.png"
 	}
 
 	err = request.addFaces()
