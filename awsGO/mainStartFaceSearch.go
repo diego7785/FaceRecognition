@@ -1,5 +1,7 @@
 //Search faces in the collection based on a video
 
+//Montar lambdas
+
 package main
 
 import (
@@ -18,7 +20,7 @@ import (
 
 var (
 	_rekognitionService rekognitioniface.RekognitionAPI
-	collectionID        = "test-video-pabloesteban"
+	collectionID        = "test-video-joseluis"
 	snsTopicArn         = "arn:aws:sns:us-east-1:530395375560:pruebaAmazonRekognition"
 	roleARN             = "arn:aws:iam::530395375560:role/pruebaFaceID"
 )
@@ -52,13 +54,6 @@ func getFaceSearchResult(jobId string) (*rekognition.GetFaceSearchOutput, error)
 		fmt.Println("Ops: ", err.Error())
 	}
 
-
-	/*if *result.JobStatus == "IN_PROGRESS"{
-		getFaceSearchResult(jobId)
-	} else {
-		return resultado
-
-	}*/
 	return result, nil
 }
 
@@ -94,7 +89,31 @@ func (req *LambdaRequest) startFaceID(ctx context.Context) error {
 		fmt.Println("Ops: ", err.Error())
 	}
 	
-	fmt.Println("GetFaceSearch result acquired, status: ", *result)
+	fmt.Println("GetFaceSearch result acquired, status: ", *result.JobStatus)
+	for *result.JobStatus == "IN_PROGRESS"{
+		result, err := getFaceSearchResult(*JobId)
+		if err != nil {
+			fmt.Println("Ops: ", err.Error())
+		}
+		if *result.JobStatus == "SUCCEEDED"{
+			lengthPersons := len(result.Persons)
+			aceptacion := int(lengthPersons/2)
+			matches := 0
+			for i := 0; i<lengthPersons; i++{
+				if(len(result.Persons[i].FaceMatches)>=1){
+					matches++
+				}
+			}
+			if(matches>=aceptacion){
+				fmt.Println("Match")
+			} else {
+				fmt.Println("No match")
+			}
+			fmt.Println(result)
+			break
+		}
+	}
+
 	return nil
 }
 
@@ -116,7 +135,7 @@ func main() {
 
 	request := LambdaRequest{
 		bucketName: "prueba-face-recognition",
-		objectKey:  "VideoDiego/video.mp4",
+		objectKey:  "VideoJoseLuis/video.mp4",
 	}
 
 	request.startFaceID(context.Background())

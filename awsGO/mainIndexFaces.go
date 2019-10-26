@@ -15,7 +15,7 @@ import (
 
 var (
 	_rekognitionService rekognitioniface.RekognitionAPI
-	collectionID        = "test-video-pabloesteban" //"NoFaces"
+	collectionID        = "test-video-carlosn" //"NoFaces"
 )
 
 // LambdaRequest body of request
@@ -63,7 +63,6 @@ func (req *LambdaRequest) addFaces() error {
 
 func main() {
 	start := time.Now()
-	//time.Sleep(time.Second*2)
 	sess, err := session.NewSession(&aws.Config{
 		Region: aws.String("us-east-1")},
 	)
@@ -77,7 +76,7 @@ func main() {
 
 	request := LambdaRequest{
 		bucketName: "prueba-face-recognition",
-		objectKey:  "VideoPabloEsteban/PabloEsteban.png", //"NoFaces/NoFace.png"
+		objectKey:  "VideoCarlosN/CarlosN.png", //"NoFaces/NoFace.png"
 	}
 
 	err = request.addFaces()

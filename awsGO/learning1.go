@@ -1,4 +1,4 @@
-//Learning how to use S3 with GO
+//Listing buckets of S3 with GO
 
 package main
 

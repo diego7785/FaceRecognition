@@ -1,21 +1,14 @@
-PRUEBA DIEGO:
-
-Analisis de foto y creación collection: 3.6
-Analisis en el video con 30 frames: 4.44
-Porcentaje de frames reconocidos: 100 %
-Funcionó: sí
-Reconoce a alguien más: NO
+Porcentaje de aciertos: 60 %
 Porcentaje Falsos positivos: 0 %
-Tiempo total: 8.04
+Tiempo promedio: 8.154 seg
 
 PRUEBA ANDRESH:
-
 Analisis de foto y creación collection: 3.7
 Analisis en el video con 30 frames: 4.162
 Porcentaje de frames reconocidos: 40 %
-Funcionó: 40 %
-Reconoce a alguien más: Diego (ciertos frames)
-Porcentaje Falsos positivos: 10 %
+Funcionó: 40 % (por gafas)
+Reconoce a alguien más: No
+Porcentaje Falsos positivos: 0 %
 Tiempo total: 7.862
 
 PRUEBA ANGELICA:
@@ -23,8 +16,8 @@ Analisis de foto y creación collection: 3.677
 Analisis en el video con 30 frames: 4.1
 Porcentaje de frames reconocidos: 100 %
 Funcionó: sí
-Reconoce a alguien más: Diego(todos), AndresH(ciertos frames)
-Porcentaje Falsos positivos: 20 %
+Reconoce a alguien más: No
+Porcentaje Falsos positivos: 0 % 
 Tiempo total: 7.777
 
 PRUEBA BEN:
@@ -32,26 +25,36 @@ Analisis de foto y creación collection: 3.825
 Analisis en el video con 30 frames: 4 
 Porcentaje de frames reconocidos: 100 %
 Funcionó: Sí
-Reconoce a alguien más: AndresH(ciertos frames), Angelica (todos), Diego
-Porcentaje Falsos positivos: 30 %
+Reconoce a alguien más: No
+Porcentaje Falsos positivos: 0 %
 Tiempo total: 7.825
 
 PRUEBA CARLOS:
 Analisis de foto y creación collection: 3.7
 Analisis en el video con 30 frames: 5.74
-Porcentaje de frames reconocidos: 50 %
-Funcionó: 50 %
-Reconoce a alguien más: AndresH, Angelica, Diego
-Porcentaje Falsos positivos: 30 %
+Porcentaje de frames reconocidos: 46 %
+Funcionó: 46 %
+Reconoce a alguien más: No
+Porcentaje Falsos positivos: 0 %
 Tiempo total: 9.44
+
+
+PRUEBA DIEGO:
+Analisis de foto y creación collection: 3.6
+Analisis en el video con 30 frames: 4.44
+Porcentaje de frames reconocidos: 100 %
+Funcionó: sí
+Reconoce a alguien más: No
+Porcentaje Falsos positivos: 0 %
+Tiempo total: 8.04
 
 PRUEBA GEORGE:
 Analisis de foto y creación collection: 3.414
 Analisis en el video con 30 frames: 4.66
 Porcentaje de frames reconocidos: 0 %
 Funcionó: No
-Reconoce a alguien más: AndresH(ciertos frames), Angelica, Diego (todos)
-Porcentaje Falsos positivos: 30 %
+Reconoce a alguien más: No 
+Porcentaje Falsos positivos: 0 % 
 Tiempo total: 8.074
 
 PRUEBA JOHAN:
@@ -59,8 +62,8 @@ Analisis de foto y creación collection:3.251
 Analisis en el video con 30 frames:4.45
 Porcentaje de frames reconocidos: 100 %
 Funcionó: sí
-Reconoce a alguien más: AndresH, Angelica, Diego, CarlosN
-Porcentaje Falsos positivos: 40 %
+Reconoce a alguien más: No
+Porcentaje Falsos positivos: 0 %
 Tiempo total: 7.701
 
 PRUEBA JOSE LUIS:
@@ -68,8 +71,8 @@ Analsis de foto y creación collection: 3.7
 Analisis en el video con 30 frames: 3.88
 Porcentaje de frames reconocidos: 40 %
 Funcionó: 40 %
-Reconoce a alguien más: AndresH, Angelica, Diego, Ben, CarlosN, Johan
-Porcentaje Falsos positivos: 60 %
+Reconoce a alguien más: No
+Porcentaje Falsos positivos: 0 %
 Tiempo total: 7.58
 
 PRUEBA NICOLAS:
@@ -77,8 +80,8 @@ Analisis de foto y creación collection: 4.41
 Analisis en el video con 30 frames: 4
 Porcentaje de frames reconocidos: 15.4 %
 Funcionó: 15.4 %
-Reconoce a alguien más: AndresH, Angelica, Diego, Ben, CarlosN, Johan, JoseLuis
-Porcentaje Falsos positivos: 70 %
+Reconoce a alguien más: AndresH, No
+Porcentaje Falsos positivos: 0 %
 Tiempo total: 8.41
 
 PRUEBAS PABLO ESTEBAN:
@@ -86,13 +89,9 @@ Analisis de foto y creación collection: 4.47
 Analisis en el video con 30 frames: 4.361
 Porcentaje de frames reconocidos: 100 %
 Funcionó: Sí
-Reconoce a alguien más: AndresH, Angelica, Diego, Ben, Johan
-Porcentaje Falsos positivos: 50 %
+Reconoce a alguien más: No
+Porcentaje Falsos positivos: 0 %
 Tiempo total: 8.831
-
-Porcentaje de aciertos: 60 %
-Porcentaje Falsos positivos: 34 %
-Tiempo promedio: 8.154
 
 
 

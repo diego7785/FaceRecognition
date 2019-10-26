@@ -11,7 +11,7 @@ import (
 	"github.com/aws/aws-sdk-go/service/rekognition"
 )
 
-var collectionName = "Prueba"
+var collectionName = "test-video-diego"
 func main(){
 	start := time.Now()
 	time.Sleep(time.Second*2)
